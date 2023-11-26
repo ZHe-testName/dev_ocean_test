@@ -1,30 +1,26 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import MainLayout from '@/layouts/MainLayout.vue';
+import { useStore } from 'vuex';
+import { usersKey } from '@/store/store';
+
+const store = useStore(usersKey);
+
+const isOverlayShow = computed(() => store.state.users.isLoading);
+</script>
+
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <MainLayout />
+
+  <v-overlay
+    v-model="isOverlayShow"
+    contained
+    class="align-center justify-center"
+  >
+    LOADING...
+  </v-overlay>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+<style scoped>
+  
 </style>
